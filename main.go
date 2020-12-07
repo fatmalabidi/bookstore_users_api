@@ -1,7 +1,7 @@
 package main
 
-import  "github.com/fatmalabidi/bookstore_users_api/printerTest"
+import "github.com/fatmalabidi/bookstore_users_api/app"
 
 func  main(){
-	printerTest.Print()
-}
+	app.StartApplication()
+ }

@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a9b1904-4bb3-4963-97c5-c29a3bdaebe5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/bookstore_users_api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/printerTest/printer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/application.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/user_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/user_sevice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/printerTest/printer.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +31,7 @@
   <component name="GoLibraries">
     <option name="urls">
       <list>
-        <option value="file://$USER_HOME$/go" />
+        <option value="file://$PROJECT_DIR$/../../../.." />
       </list>
     </option>
   </component>
@@ -81,6 +86,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
