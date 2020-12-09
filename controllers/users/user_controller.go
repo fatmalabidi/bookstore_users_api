@@ -3,23 +3,14 @@ package users
 import (
 	"github.com/fatmalabidi/bookstore_users_api/domain/users"
 	"github.com/fatmalabidi/bookstore_users_api/services"
-	resterr "github.com/fatmalabidi/bookstore_users_api/utils/error"
+	resterr "github.com/fatmalabidi/bookstore_users_api/utils/error_handler"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func CreateUser(ctx *gin.Context) {
 	var user users.User
-	//bytes, err := ioutil.ReadAll(ctx.Request.Body)
-	//if err != nil {
-	//	// TODO handle error
-	//	return
-	//}
-	//if err := json.Unmarshal(bytes, &user); err != nil {
-	//	// TODO handle error
-	//	return
-	//}
-
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		restErr := resterr.NewBadRequestError("invalid json body")
 		ctx.JSON(restErr.Code, restErr)
@@ -34,5 +25,17 @@ func CreateUser(ctx *gin.Context) {
 }
 
 func GetUser(ctx *gin.Context) {
-	ctx.JSON(http.StatusNotImplemented, "GetUser: implement me")
-}
+
+	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
+	if err != nil {
+		restErr := resterr.NewBadRequestError("invalid param")
+		ctx.JSON(restErr.Code, restErr)
+		return
+	}
+
+	res, getErr := services.GetUser(userID)
+	if getErr != nil {
+		ctx.JSON(getErr.Code, getErr)
+		return
+	}
+	ctx.JSON(http.StatusOK, res)}
