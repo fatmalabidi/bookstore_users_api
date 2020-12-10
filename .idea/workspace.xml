@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a9b1904-4bb3-4963-97c5-c29a3bdaebe5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/date_utils/date_utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/mysql/users_db/users_db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domain/users/user_dao.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/users/user_dao.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +65,12 @@
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="bookstore_users_api" />
       <working_directory value="$PROJECT_DIR$" />
+      <envs>
+        <env name="sql_username" value="root" />
+        <env name="sql_password" value="13440771aA+" />
+        <env name="sql_host" value="127.0.0.1" />
+        <env name="sql_port" value="3306" />
+      </envs>
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/main.go" />
       <directory value="$PROJECT_DIR$" />

@@ -4,6 +4,7 @@ package users
 
 import (
 	"fmt"
+	"github.com/fatmalabidi/bookstore_users_api/database/mysql/users_db"
 	dateUtils "github.com/fatmalabidi/bookstore_users_api/utils/date_utils"
 	errH "github.com/fatmalabidi/bookstore_users_api/utils/error_handler"
 )
@@ -25,6 +26,9 @@ func (user *User) Save() *errH.RestErr {
 }
 
 func (user *User) Get() *errH.RestErr {
+	if err := users_db.Client.Ping(); err != nil {
+		panic(err)
+	}
 	currentUser := userDb[user.ID]
 	if currentUser == nil {
 		return errH.NewNotFoundError(fmt.Sprintf("user with id %d not found", user.ID))
