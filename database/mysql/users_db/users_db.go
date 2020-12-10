@@ -27,6 +27,8 @@ func init() {
 	// dataSourceName= <userName>:<password>@tcp(<host>)/<schema>
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8",
 		username, password, host, port, schema)
+	log.Println("connecting to ", dataSourceName)
+
 	var err error
 	Client, err = sql.Open("mysql", dataSourceName)
 	if err != nil {
@@ -36,5 +38,4 @@ func init() {
 		panic(err)
 	}
 	log.Println("database successfully configured")
-	log.Println(dataSourceName)
 }

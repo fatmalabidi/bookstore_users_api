@@ -16,6 +16,7 @@ func CreateUser(ctx *gin.Context) {
 		ctx.JSON(restErr.Code, restErr)
 		return
 	}
+
 	res, saveErr := services.CreateUser(user)
 	if saveErr != nil {
 		ctx.JSON(saveErr.Code, saveErr)
@@ -38,4 +39,5 @@ func GetUser(ctx *gin.Context) {
 		ctx.JSON(getErr.Code, getErr)
 		return
 	}
-	ctx.JSON(http.StatusOK, res)}
+	ctx.JSON(http.StatusOK, res)
+}

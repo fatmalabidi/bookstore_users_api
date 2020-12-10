@@ -3,10 +3,17 @@ package users
 // the access layer  to db
 
 import (
+	"context"
 	"fmt"
 	"github.com/fatmalabidi/bookstore_users_api/database/mysql/users_db"
-	dateUtils "github.com/fatmalabidi/bookstore_users_api/utils/date_utils"
+	"github.com/fatmalabidi/bookstore_users_api/utils/date_utils"
 	errH "github.com/fatmalabidi/bookstore_users_api/utils/error_handler"
+)
+
+const (
+	//  todo create builder/constructor to generate queries
+	insertQuery = "INSERT INTO users(id,first_name, last_name, email, created_at, updated_at, date_created)" +
+		" VALUES (?, ?, ?, ?, ?, ?, ?);"
 )
 
 var (
@@ -14,14 +21,25 @@ var (
 )
 
 func (user *User) Save() *errH.RestErr {
-	currentUser := userDb[user.ID]
-	if currentUser != nil {
-		return errH.NewBadRequestError(fmt.Sprintf("user with id %d already exist", user.ID))
+	statement, err := users_db.Client.PrepareContext(context.Background(), insertQuery)
+	if err != nil {
+		return errH.NewInternalServerError(err.Error())
 	}
-	user.CreatedAt = dateUtils.GetNowSEpoch()
-	user.UpdatedAt = dateUtils.GetNowSEpoch()
-	user.DateCreated = dateUtils.GetNowString()
-	userDb[user.ID] = user
+	defer func() {
+		_ = statement.Close()
+	}()
+	user.DateCreated = date_utils.GetNowString()
+	user.CreatedAt = date_utils.GetNowSEpoch()
+	user.UpdatedAt = date_utils.GetNowSEpoch()
+	res, err := statement.Exec(user.ID, user.FirstName, user.LastName, user.Email, user.CreatedAt, user.UpdatedAt, user.DateCreated)
+	if err != nil {
+		return errH.NewInternalServerError(err.Error())
+	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		return errH.NewInternalServerError(err.Error())
+	}
+	user.ID = id
 	return nil
 }
 
