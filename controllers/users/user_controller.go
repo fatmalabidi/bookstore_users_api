@@ -69,6 +69,16 @@ func DeleteUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, "user has been successfully deleted")
 }
 
+func Search(ctx *gin.Context) {
+	status := ctx.Query("status")
+	userByStatus, err := services.Search(status)
+	if err != nil {
+		ctx.JSON(err.Code, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, userByStatus)
+}
+
 func getUserID(ctx *gin.Context) int64 {
 	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
 	if err != nil {

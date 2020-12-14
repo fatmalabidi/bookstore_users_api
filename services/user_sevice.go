@@ -22,6 +22,7 @@ func CreateUser(user users.User) (*users.User, *errH.RestErr) {
 	if err := user.Validate(); err != nil {
 		return nil, err
 	}
+	user.Status = users.StatusActive
 	if err := user.Save(); err != nil {
 		return nil, err
 	}
@@ -59,14 +60,18 @@ func UpdateUser(user users.User, partial bool) (*users.User, *errH.RestErr) {
 	return &currentUser, nil
 }
 
-
 func DeleteUser(userID int64) *errH.RestErr {
 	user, err := GetUser(userID)
-	if err  != nil {
+	if err != nil {
 		return errH.NewNotFoundError(fmt.Sprintf("user with the id %d not found", userID))
 	}
 	if err := user.Delete(); err != nil {
 		return err
 	}
 	return nil
+}
+
+func Search(status string) ([]users.User, *errH.RestErr) {
+	dao := users.User{}
+	return dao.GetByStatus(status)
 }
