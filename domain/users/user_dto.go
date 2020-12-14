@@ -10,6 +10,8 @@ type User struct {
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"`
 	Email       string `json:"email"`
+	Status      string `json:"status"`
+	Password    string `json:"-"` //internal field, we don't use [Password] with json
 	CreatedAt   int64  `json:"created_at"`
 	UpdatedAt   int64  `json:"updated_at"`
 	DateCreated string `json:"date_created"`

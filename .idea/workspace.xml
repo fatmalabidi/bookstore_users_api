@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6a9b1904-4bb3-4963-97c5-c29a3bdaebe5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/url_mappings.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/url_mappings.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/users/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users/user_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/user_sevice.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/user_sevice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/users/user_dto.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/users/user_dto.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,17 +106,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/users/user_controller.go</url>
-          <line>75</line>
+          <line>65</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/users/user_controller.go</url>
-          <line>76</line>
+          <line>66</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/users/user_controller.go</url>
-          <line>78</line>
+          <line>68</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -137,7 +136,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/controllers/users/user_controller.go</url>
-          <line>74</line>
+          <line>64</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>

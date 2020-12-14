@@ -37,16 +37,6 @@ func GetUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
-func getUserID(ctx *gin.Context) int64 {
-	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
-	if err != nil {
-		restErr := resterr.NewBadRequestError("invalid param")
-		ctx.JSON(restErr.Code, restErr)
-		return 0
-	}
-	return userID
-}
-
 func UpdateUser(ctx *gin.Context) {
 	userID := getUserID(ctx)
 
@@ -77,4 +67,14 @@ func DeleteUser(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, "user has been successfully deleted")
+}
+
+func getUserID(ctx *gin.Context) int64 {
+	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
+	if err != nil {
+		restErr := resterr.NewBadRequestError("invalid param")
+		ctx.JSON(restErr.Code, restErr)
+		return 0
+	}
+	return userID
 }
