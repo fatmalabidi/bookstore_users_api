@@ -18,6 +18,9 @@ const (
 	getQuery = "SELECT  id,first_name, last_name, email, created_at, updated_at, date_created FROM users WHERE id=?"
 
 	updateQuery = "UPDATE users SET first_name=? , last_name=?, email=?, updated_at=? WHERE id=?"
+
+	deleteQuery = "DELETE FROM users WHERE id=?"
+
 )
 
 func (user *User) Save() *errH.RestErr {
@@ -78,6 +81,26 @@ func (user *User) Update() *errH.RestErr {
 	}()
 	user.UpdatedAt = date_utils.GetNowSEpoch()
 	_, err = statement.Exec(user.FirstName, user.LastName, &user.Email, user.UpdatedAt, user.ID)
+	if err != nil {
+		return mysql_utils.ParseError(err)
+	}
+	return nil
+}
+
+
+func (user *User) Delete() *errH.RestErr {
+	if err := users_db.Client.Ping(); err != nil {
+		panic(err)
+	}
+	statement, err := users_db.Client.PrepareContext(context.Background(), deleteQuery)
+	if err != nil {
+		return errH.NewInternalServerError(err.Error())
+	}
+	defer func() {
+		_ = statement.Close()
+	}()
+	user.UpdatedAt = date_utils.GetNowSEpoch()
+	_, err = statement.Exec(user.ID)
 	if err != nil {
 		return mysql_utils.ParseError(err)
 	}

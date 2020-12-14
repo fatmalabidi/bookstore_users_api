@@ -51,6 +51,8 @@ func UpdateUser(ctx *gin.Context) {
 	}
 
 	var user users.User
+	isPatch:=ctx.Request.Method==http.MethodPatch
+
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		restErr := resterr.NewBadRequestError("invalid json body")
 		ctx.JSON(restErr.Code, restErr)
@@ -58,7 +60,7 @@ func UpdateUser(ctx *gin.Context) {
 	}
 	user.ID = userID
 
-	res, updateErr := services.UpdateUser(user)
+	res, updateErr := services.UpdateUser(user,isPatch)
 	if updateErr != nil {
 		ctx.JSON(updateErr.Code, updateErr)
 		return
