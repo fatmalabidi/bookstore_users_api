@@ -27,12 +27,7 @@ func CreateUser(ctx *gin.Context) {
 
 func GetUser(ctx *gin.Context) {
 
-	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
-	if err != nil {
-		restErr := resterr.NewBadRequestError("invalid param")
-		ctx.JSON(restErr.Code, restErr)
-		return
-	}
+	userID := getUserID(ctx)
 
 	res, getErr := services.GetUser(userID)
 	if getErr != nil {
@@ -42,16 +37,21 @@ func GetUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, res)
 }
 
-func UpdateUser(ctx *gin.Context) {
+func getUserID(ctx *gin.Context) int64 {
 	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
 	if err != nil {
 		restErr := resterr.NewBadRequestError("invalid param")
 		ctx.JSON(restErr.Code, restErr)
-		return
+		return 0
 	}
+	return userID
+}
+
+func UpdateUser(ctx *gin.Context) {
+	userID := getUserID(ctx)
 
 	var user users.User
-	isPatch:=ctx.Request.Method==http.MethodPatch
+	isPatch := ctx.Request.Method == http.MethodPatch
 
 	if err := ctx.ShouldBindJSON(&user); err != nil {
 		restErr := resterr.NewBadRequestError("invalid json body")
@@ -60,10 +60,21 @@ func UpdateUser(ctx *gin.Context) {
 	}
 	user.ID = userID
 
-	res, updateErr := services.UpdateUser(user,isPatch)
+	res, updateErr := services.UpdateUser(user, isPatch)
 	if updateErr != nil {
 		ctx.JSON(updateErr.Code, updateErr)
 		return
 	}
 	ctx.JSON(http.StatusOK, res)
+}
+
+func DeleteUser(ctx *gin.Context) {
+	userID := getUserID(ctx)
+
+	deleteErr := services.DeleteUser(userID)
+	if deleteErr != nil {
+		ctx.JSON(deleteErr.Code, deleteErr)
+		return
+	}
+	ctx.JSON(http.StatusOK, "user has been successfully deleted")
 }
