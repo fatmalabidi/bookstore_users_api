@@ -4,20 +4,18 @@ package users
 
 import (
 	"context"
-	"fmt"
 	"github.com/fatmalabidi/bookstore_users_api/database/mysql/users_db"
 	"github.com/fatmalabidi/bookstore_users_api/utils/date_utils"
 	errH "github.com/fatmalabidi/bookstore_users_api/utils/error_handler"
+	"github.com/fatmalabidi/bookstore_users_api/utils/mysql_utils"
 )
 
 const (
 	//  todo create builder/constructor to generate queries
 	insertQuery = "INSERT INTO users(id,first_name, last_name, email, created_at, updated_at, date_created)" +
 		" VALUES (?, ?, ?, ?, ?, ?, ?);"
-)
 
-var (
-	userDb = make(map[int64]*User)
+	getQuery = "SELECT  id,first_name, last_name, email, created_at, updated_at, date_created FROM users WHERE id=?"
 )
 
 func (user *User) Save() *errH.RestErr {
@@ -33,7 +31,7 @@ func (user *User) Save() *errH.RestErr {
 	user.UpdatedAt = date_utils.GetNowSEpoch()
 	res, err := statement.Exec(user.ID, user.FirstName, user.LastName, user.Email, user.CreatedAt, user.UpdatedAt, user.DateCreated)
 	if err != nil {
-		return errH.NewInternalServerError(err.Error())
+		return mysql_utils.ParseError(err)
 	}
 	id, err := res.LastInsertId()
 	if err != nil {
@@ -47,16 +45,20 @@ func (user *User) Get() *errH.RestErr {
 	if err := users_db.Client.Ping(); err != nil {
 		panic(err)
 	}
-	currentUser := userDb[user.ID]
-	if currentUser == nil {
-		return errH.NewNotFoundError(fmt.Sprintf("user with id %d not found", user.ID))
+
+	statement, err := users_db.Client.PrepareContext(context.Background(), getQuery)
+	if err != nil {
+		return errH.NewInternalServerError(err.Error())
 	}
-	user.ID = currentUser.ID
-	user.CreatedAt = currentUser.CreatedAt
-	user.UpdatedAt = currentUser.UpdatedAt
-	user.Email = currentUser.Email
-	user.DateCreated = currentUser.DateCreated
-	user.LastName = currentUser.LastName
-	user.FirstName = currentUser.FirstName
+	defer func() {
+		_ = statement.Close()
+	}()
+	res := statement.QueryRow(user.ID)
+	//  the scan dest should be pointers !
+	if scanErr := res.Scan(
+		&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.CreatedAt, &user.UpdatedAt, &user.DateCreated,
+	); scanErr != nil {
+		return mysql_utils.ParseError(scanErr)
+	}
 	return nil
 }

@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a9b1904-4bb3-4963-97c5-c29a3bdaebe5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/utils/mysql_utils/mysql_utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/users/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users/user_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/mysql/users_db/users_db.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/mysql/users_db/users_db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domain/users/user_dao.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/users/user_dao.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/error_handler/rest_errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/error_handler/rest_errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +55,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Fatma\go\src\github.com\fatmalabidi\bookstore_users_api\utils\mysql_utils" />
       <recent name="C:\Users\Fatma\go\src\github.com\fatmalabidi\bookstore_users_api\domain\users" />
       <recent name="C:\Users\Fatma\go\src\github.com\fatmalabidi\bookstore_users_api\controllers\user_controllers" />
       <recent name="C:\Users\Fatma\go\src\github.com\fatmalabidi\bookstore_users_api\controllers\ping_controllers" />
