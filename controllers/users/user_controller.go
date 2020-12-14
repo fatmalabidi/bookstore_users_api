@@ -41,3 +41,27 @@ func GetUser(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, res)
 }
+
+func UpdateUser(ctx *gin.Context) {
+	userID, err := strconv.ParseInt(ctx.Param("userID"), 10, 64)
+	if err != nil {
+		restErr := resterr.NewBadRequestError("invalid param")
+		ctx.JSON(restErr.Code, restErr)
+		return
+	}
+
+	var user users.User
+	if err := ctx.ShouldBindJSON(&user); err != nil {
+		restErr := resterr.NewBadRequestError("invalid json body")
+		ctx.JSON(restErr.Code, restErr)
+		return
+	}
+	user.ID = userID
+
+	res, updateErr := services.UpdateUser(user)
+	if updateErr != nil {
+		ctx.JSON(updateErr.Code, updateErr)
+		return
+	}
+	ctx.JSON(http.StatusOK, res)
+}
